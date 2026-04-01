@@ -3,6 +3,7 @@ import csv
 import random
 import wave
 from pathlib import Path
+import argparse
 from dotenv import load_dotenv
 
 from google import genai
@@ -12,8 +13,14 @@ from google.genai import types
 # ===================== CONFIG ===================== #
 
 # Root dataset dir
-# provide the path of the finala_data folder where the datasets are stored
-BASE_DIR = "/media/RELETECH/final_data"
+# Provide the path of the final_data folder where the datasets are stored.
+# NOTE: This script is often run from this folder (`.../Data Augmentation/Scripts`).
+# The original relative path (`../../final_data`) points to:
+#   `Bangla Audio Deepfake Detection/final_data` (which doesn't exist in this repo).
+# Your actual datasets live at the workspace root:
+#   `F:/ML Project/final_data`
+# So we resolve a sensible default from the script location, and allow override via CLI.
+DEFAULT_BASE_DIR = (Path(__file__).resolve().parents[3] / "final_data")  # -> F:/ML Project/final_data
 
 # How many total samples
 N = 6
@@ -69,6 +76,38 @@ DATASETS = [
 
 
 # ===================== HELPERS ===================== #
+
+
+def resolve_base_dir(base_dir: str | None) -> Path:
+    """
+    Resolve base directory for datasets.
+
+    Priority:
+    - explicit `base_dir` argument
+    - DEFAULT_BASE_DIR (workspace-root/final_data)
+    - a couple of common fallbacks for older layouts
+    """
+    script_dir = Path(__file__).resolve().parent
+
+    candidates: list[Path] = []
+
+    if base_dir:
+        p = Path(base_dir)
+        # If user passed a relative path, interpret it relative to this script.
+        if not p.is_absolute():
+            p = (script_dir / p).resolve()
+        candidates.append(p)
+
+    candidates.append(DEFAULT_BASE_DIR)
+    candidates.append((script_dir.parents[2] / "final_data").resolve())  # Bangla Audio Deepfake Detection/final_data
+    candidates.append((script_dir.parents[3] / "LSTM" / "final_data").resolve())  # workspace-root/LSTM/final_data
+
+    for c in candidates:
+        if c.exists() and c.is_dir():
+            return c
+
+    msg = "Could not find `final_data` folder. Checked:\n" + "\n".join(f"  - {c}" for c in candidates)
+    raise FileNotFoundError(msg)
 
 
 def read_metadata_csv(path):
@@ -219,7 +258,7 @@ def generate_dataset():
 
         print(f"\nProcessing: {dataset}")
 
-        ds_path = Path(BASE_DIR) / dataset
+        ds_path = BASE_DIR / dataset
         meta = load_metadata(ds_path)
 
         random.shuffle(meta)
@@ -267,6 +306,18 @@ def generate_dataset():
 # ===================== RUN ===================== #
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="Generate Gemini TTS deepfake samples.")
+    parser.add_argument(
+        "--base_dir",
+        type=str,
+        default=None,
+        help="Path to the `final_data` folder (defaults to auto-detected workspace-root/final_data).",
+    )
+    args = parser.parse_args()
+
+    BASE_DIR = resolve_base_dir(args.base_dir)
+    print(f"Using BASE_DIR: {BASE_DIR}")
 
     random.seed(42)
 

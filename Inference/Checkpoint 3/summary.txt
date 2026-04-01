@@ -1,0 +1,16 @@
+Bangla Audio Deepfake Detection (2005037, 2005045)
+
+                            LSTM Pipeline   WavLM Pipeline
+BanglaFake (13k + 12k)          98              80
+LSTM Paper (2750+2750)          99
+Augmentation (2400+2400)        70              70
+
+Our Proposals:
+1. Tweak our own piepline (WavLM) to increase accuracy
+2. Perform Benchmarking:
+    a. Do train-test split on all 4 dataset (BanglaFake, LSTM, Crikk, Gemini) to evaluate generalization
+    b. Train on 3, Evaluate on 1 to check if Algorithm Agnostic
+
+Guideline we are seeking:
+1. Should we try anything else?
+2. What questions should motivate our work and experimental setup given the current findings

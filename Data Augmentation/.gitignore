@@ -1,0 +1,5 @@
+crikk_google_profile
+data
+.env
+tts_checkpoint.json
+store-google-creds.py

@@ -1,0 +1,17 @@
+Metric,Value
+Architecture,WavLM-Large + Modified AASIST + OC-Softmax
+Dataset,"26592 samples (13796 real, 12796 fake)"
+Split,Train 19237 / Val 5461 / Test 1894 (speaker-independent)
+Best Epoch,32
+Test EER,0.1594
+Test ROC-AUC,0.9364
+Test Accuracy,0.8062
+Test Precision (Real),0.9632
+Test Recall (Real),0.7210
+Test F1 (Real),0.8247
+Test Precision (Fake),0.6653
+Test Recall (Fake),0.9527
+Test F1 (Fake),0.7835
+Robustness 10dB Noise EER,0.1837
+Robustness MP3 Compress. EER,0.2223
+Robustness Reverb (0.5s) EER,0.1806
