@@ -127,6 +127,11 @@ We will include samples from **Emotional TTS models** (e.g., ehzawad/orpheus-ban
 
 * **Rationale:** Deepfakes often struggle with emotional consistency. Including synthetic emotional speech prevents the model from simply flagging "flat prosody" as fake, pushing it to find deeper acoustic evidence of forgery.
 
+#### **3.2.4 Source D: Gemini Pro (Google's TTS)**
+
+* **Rationale:** Google's TTS models are among the most advanced and widely used. If we can access Bengali synthesis from Gemini Pro, it would provide a critical test of the model's generalization to commercial-grade deepfakes.
+We generated `1000` samples from Gemini Pro's Bengali TTS to include in the training set across different speakers and emotional tones.
+
 ### **3.3 Preliminary Data Analysis Findings**
 
 An initial exploratory data analysis (EDA) of the core BanglaFake dataset has yielded critical insights that shape our downstream architecture and augmentation strategies:

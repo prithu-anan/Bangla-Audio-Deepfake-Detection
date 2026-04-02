@@ -1,0 +1,20 @@
+- Problem Statement:
+Less works have been done in bengali audio deepfake detection with compare to indo-european languages.
+
+- what are the available state of the art detectors?
+- why are we saying that they don't work well on bengali deepfake? do we have any evidence to that?
+
+- Why we can't use existing detectors:
+Each language produces different artifact when fake audio is generated, hence one-size-fits-all doesn't work here.
+
+Dataset info:
+
+BanglaFake is generated using VITS
+
+Challenge:
+
+when we plotted mfcc, the real and fake were linearly inseparable.
+
+- research papers that we have used:
+1. deepfake.pdf ( dataset paper )
+2. Detecting Bangla Deepfake Using Lstm and wavenet
