@@ -209,7 +209,7 @@ We visualized the attention weights from the modified AASIST backend to understa
 - The use of WavLM frontend and AASIST backend provides a strong foundation for raw audio deepfake detection.
 - Attention visualization helps in understanding which audio regions are important for classification.
 
-## Summary of Models on BanglaFake Dataset
+## Summary of Models that are trained and evaluated on BanglaFake Dataset
 
 | Model               | Accuracy | EER    | ROC-AUC | Precision (Real/Fake) | Recall (Real/Fake) | F1 (Real/Fake)  | Robustness EER (Noise/MP3/Reverb) |
 | ------------------- | -------- | ------ | ------- | --------------------- | ------------------ | --------------- | --------------------------------- |
