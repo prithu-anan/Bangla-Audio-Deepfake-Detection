@@ -1,0 +1,236 @@
+6.9s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s 3 0.00s - to python to disable frozen modules.
+6.9s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.5s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.5s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.5s 7 0.00s - to python to disable frozen modules.
+7.5s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+33.9s 9 PyTorch: 2.10.0+cu128
+33.9s 10 CUDA available: True
+33.9s 11 GPU: Tesla T4
+34.1s 12 Downloading final_data.zip from Hugging Face dataset: sifat1221/banglaFake
+60.6s 13 Extracting dataset to: /kaggle/working/banglafake_hf
+113.5s 14 Using dataset base directory: /kaggle/working/banglafake_hf/final_data
+113.5s 15 Device: cuda
+113.5s 16 Effective batch size: 16
+113.7s 17 Total samples: 26592
+113.7s 18 
+113.7s 19 Class distribution:
+113.7s 20 label_name
+113.7s 21 Real    13796
+113.7s 22 Fake    12796
+113.7s 23 Name: count, dtype: int64
+113.7s 24 
+113.7s 25 Samples per source:
+113.8s 26 label_name  Fake  Real
+113.8s 27 source
+113.8s 28 mozilla     2797  2797
+113.8s 29 news           0  1000
+113.8s 30 sust        9999  9999
+113.8s 31 
+113.8s 32 Unique speakers: 85
+113.8s 33 mozilla: 5 speakers
+113.8s 34 news: 10 speakers
+113.8s 35 sust: 70 speakers
+114.7s 36 Train:  19237 samples | 10019 real,  9218 fake | 47 speakers
+114.7s 37 Val  :   5461 samples |  2580 real,  2881 fake | 25 speakers
+114.7s 38 Test :   1894 samples |  1197 real,   697 fake | 13 speakers
+114.7s 39 
+114.7s 40 No speaker overlap between splits.
+115.3s 41 RawBoost augmentation ready.
+115.4s 42 Train: 19237 samples, 4809 batches
+115.4s 43 Val:   5461 samples, 1366 batches
+115.4s 44 Test:  1894 samples, 474 batches
+115.7s 45 AASIST test -- input: torch.Size([2, 250, 1024]) -> embedding: torch.Size([2, 128]), attn: torch.Size([2, 1, 282])
+115.7s 46 OC-Softmax loss ready.
+116.1s 47 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+116.1s 48 
+116.1s 49 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+126.3s 50 Wav2Vec2Model LOAD REPORT from: facebook/wav2vec2-xls-r-300m
+126.3s 51 Key                          | Status     |  |
+126.3s 52 -----------------------------+------------+--+-
+126.3s 53 quantizer.codevectors        | UNEXPECTED |  |
+126.3s 54 project_hid.weight           | UNEXPECTED |  |
+126.3s 55 project_q.bias               | UNEXPECTED |  |
+126.3s 56 project_hid.bias             | UNEXPECTED |  |
+126.3s 57 quantizer.weight_proj.bias   | UNEXPECTED |  |
+126.3s 58 quantizer.weight_proj.weight | UNEXPECTED |  |
+126.3s 59 project_q.weight             | UNEXPECTED |  |
+126.3s 60 
+126.3s 61 Notes:
+126.3s 62 - UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+126.3s 63 
+126.3s 64 Wav2Vec2Model LOAD REPORT from: facebook/wav2vec2-xls-r-300m
+126.3s 65 Key                          | Status     |  |
+126.3s 66 -----------------------------+------------+--+-
+126.3s 67 quantizer.codevectors        | UNEXPECTED |  |
+126.3s 68 project_hid.weight           | UNEXPECTED |  |
+126.3s 69 project_q.bias               | UNEXPECTED |  |
+126.3s 70 project_hid.bias             | UNEXPECTED |  |
+126.3s 71 quantizer.weight_proj.bias   | UNEXPECTED |  |
+126.3s 72 quantizer.weight_proj.weight | UNEXPECTED |  |
+126.3s 73 project_q.weight             | UNEXPECTED |  |
+126.3s 74 
+126.3s 75 Notes:
+126.3s 76 - UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+127.0s 77 Total parameters:     316,502,208
+127.0s 78 Trainable parameters: 160,611,008
+127.0s 79 Frozen parameters:    155,891,200
+127.1s 80 Metric utilities ready.
+127.3s 81 Training utilities ready.
+127.3s 82 
+127.3s 83 ============================================================
+127.3s 84 Epoch 1/20  (lr_xlsr=1.00e-05, lr_aasist=1.00e-04)
+127.3s 85 ============================================================
+1513.0s 86 Train -- Loss: 0.5473 | Acc: 0.5329 | EER: 0.3007
+1513.0s 87 Val   -- Loss: 1.2999 | Acc: 0.6905 | EER: 0.2159 | AUC: 0.7512
+1515.5s 88 >>> Best model saved (Val EER: 0.2159)
+1515.5s 89 
+1515.5s 90 ============================================================
+1515.5s 91 Epoch 2/20  (lr_xlsr=9.94e-06, lr_aasist=9.94e-05)
+1515.5s 92 ============================================================
+2890.1s 93 Train -- Loss: 0.3370 | Acc: 0.5540 | EER: 0.1437
+2890.1s 94 Val   -- Loss: 0.3709 | Acc: 0.4724 | EER: 0.1353 | AUC: 0.9276
+2894.7s 95 >>> Best model saved (Val EER: 0.1353)
+2894.7s 96 
+2894.7s 97 ============================================================
+2894.7s 98 Epoch 3/20  (lr_xlsr=9.76e-06, lr_aasist=9.76e-05)
+2894.7s 99 ============================================================
+4256.5s 100 Train -- Loss: 0.2678 | Acc: 0.5554 | EER: 0.1066
+4256.5s 101 Val   -- Loss: 0.4633 | Acc: 0.7339 | EER: 0.1392 | AUC: 0.9184
+4256.5s 102 No improvement (1/7)
+4256.5s 103 
+4256.5s 104 ============================================================
+4256.5s 105 Epoch 4/20  (lr_xlsr=9.46e-06, lr_aasist=9.46e-05)
+4256.5s 106 ============================================================
+5618.6s 107 Train -- Loss: 0.2428 | Acc: 0.5545 | EER: 0.0938
+5618.6s 108 Val   -- Loss: 0.5578 | Acc: 0.8189 | EER: 0.1458 | AUC: 0.9241
+5618.6s 109 No improvement (2/7)
+5618.6s 110 
+5618.6s 111 ============================================================
+5618.6s 112 Epoch 5/20  (lr_xlsr=9.05e-06, lr_aasist=9.05e-05)
+5618.6s 113 ============================================================
+6982.9s 114 Train -- Loss: 0.2271 | Acc: 0.5612 | EER: 0.0849
+6982.9s 115 Val   -- Loss: 0.4390 | Acc: 0.8907 | EER: 0.1306 | AUC: 0.9473
+6987.5s 116 >>> Best model saved (Val EER: 0.1306)
+6987.5s 117 
+6987.5s 118 ============================================================
+6987.5s 119 Epoch 6/20  (lr_xlsr=8.54e-06, lr_aasist=8.54e-05)
+6987.5s 120 ============================================================
+8350.7s 121 Train -- Loss: 0.2164 | Acc: 0.5973 | EER: 0.0782
+8350.7s 122 Val   -- Loss: 0.4486 | Acc: 0.8484 | EER: 0.1198 | AUC: 0.9545
+8355.5s 123 >>> Best model saved (Val EER: 0.1198)
+8355.5s 124 
+8355.5s 125 ============================================================
+8355.5s 126 Epoch 7/20  (lr_xlsr=7.94e-06, lr_aasist=7.94e-05)
+8355.5s 127 ============================================================
+9718.2s 128 Train -- Loss: 0.1999 | Acc: 0.5835 | EER: 0.0692
+9718.2s 129 Val   -- Loss: 0.5543 | Acc: 0.9090 | EER: 0.1309 | AUC: 0.9484
+9718.2s 130 No improvement (1/7)
+9718.2s 131 
+9718.2s 132 ============================================================
+9718.2s 133 Epoch 8/20  (lr_xlsr=7.27e-06, lr_aasist=7.27e-05)
+9718.2s 134 ============================================================
+11077.1s 135 Train -- Loss: 0.1909 | Acc: 0.6146 | EER: 0.0664
+11077.1s 136 Val   -- Loss: 0.5042 | Acc: 0.8557 | EER: 0.1375 | AUC: 0.9463
+11077.1s 137 No improvement (2/7)
+11077.1s 138 
+11077.1s 139 ============================================================
+11077.1s 140 Epoch 9/20  (lr_xlsr=6.55e-06, lr_aasist=6.55e-05)
+11077.1s 141 ============================================================
+12437.9s 142 Train -- Loss: 0.1826 | Acc: 0.6097 | EER: 0.0626
+12437.9s 143 Val   -- Loss: 0.4363 | Acc: 0.9039 | EER: 0.1264 | AUC: 0.9549
+12437.9s 144 No improvement (3/7)
+12437.9s 145 
+12437.9s 146 ============================================================
+12437.9s 147 Epoch 10/20  (lr_xlsr=5.78e-06, lr_aasist=5.78e-05)
+12437.9s 148 ============================================================
+13796.2s 149 Train -- Loss: 0.1715 | Acc: 0.6252 | EER: 0.0576
+13796.2s 150 Val   -- Loss: 0.4206 | Acc: 0.8790 | EER: 0.1306 | AUC: 0.9541
+13796.2s 151 No improvement (4/7)
+13796.2s 152 
+13796.2s 153 ============================================================
+13796.2s 154 Epoch 11/20  (lr_xlsr=5.00e-06, lr_aasist=5.00e-05)
+13796.2s 155 ============================================================
+15150.3s 156 Train -- Loss: 0.1670 | Acc: 0.6367 | EER: 0.0552
+15150.3s 157 Val   -- Loss: 0.3895 | Acc: 0.8491 | EER: 0.1236 | AUC: 0.9561
+15150.3s 158 No improvement (5/7)
+15150.3s 159 
+15150.3s 160 ============================================================
+15150.3s 161 Epoch 12/20  (lr_xlsr=4.22e-06, lr_aasist=4.22e-05)
+15150.3s 162 ============================================================
+16517.1s 163 Train -- Loss: 0.1610 | Acc: 0.6575 | EER: 0.0534
+16517.1s 164 Val   -- Loss: 0.4193 | Acc: 0.8975 | EER: 0.1201 | AUC: 0.9580
+16517.1s 165 No improvement (6/7)
+16517.1s 166 
+16517.1s 167 ============================================================
+16517.1s 168 Epoch 13/20  (lr_xlsr=3.45e-06, lr_aasist=3.45e-05)
+16517.1s 169 ============================================================
+17880.8s 170 Train -- Loss: 0.1502 | Acc: 0.6871 | EER: 0.0486
+17880.8s 171 Val   -- Loss: 0.4823 | Acc: 0.9172 | EER: 0.1209 | AUC: 0.9587
+17880.8s 172 No improvement (7/7)
+17880.8s 173 
+17880.8s 174 Early stopping at epoch 13.
+17880.8s 175 
+17880.8s 176 Training complete.
+17883.6s 177 Loaded best model from epoch 6 (Val EER: 0.1198)
+17934.9s 178 
+17934.9s 179 Test Results:
+17934.9s 180 Loss:     1.0827
+17934.9s 181 Accuracy: 0.8295
+17934.9s 182 EER:      0.1679
+17934.9s 183 ROC-AUC:  0.9260
+17937.0s 184 
+17937.0s 185 Precision     Recall         F1    Support
+17937.0s 186 ----------------------------------------------------------
+17937.0s 187 Real                 0.9031     0.8179     0.8584       1197
+17937.0s 188 Fake                 0.7309     0.8494     0.7857        697
+17937.0s 189 ----------------------------------------------------------
+17937.0s 190 Accuracy                                   0.8295       1894
+17937.0s 191 Weighted Avg         0.8397     0.8295     0.8316       1894
+17937.1s 192 Clean            -- EER: 0.1679 | AUC: 0.9260 | Acc: 0.8295
+17989.7s 193 10dB Noise       -- EER: 0.2092 | AUC: 0.8966 | Acc: 0.6320
+18042.7s 194 MP3 Compress.    -- EER: 0.1436 | AUC: 0.9403 | Acc: 0.8627
+18096.8s 195 Reverb (0.5s)    -- EER: 0.2686 | AUC: 0.8321 | Acc: 0.6325
+18100.3s 196 Metric                                                    Value
+18100.3s 197 Architecture                     XLS-R + Modified AASIST + OC-Softmax
+18100.3s 198 Dataset                   26592 samples (13796 real, 12796 fake)
+18100.3s 199 Split Train 19237 / Val 5461 / Test 1894 (speaker-independent)
+18100.3s 200 Best Epoch                                                        6
+18100.3s 201 Test EER                                                   0.1679
+18100.3s 202 Test ROC-AUC                                                   0.9260
+18100.3s 203 Test Accuracy                                                   0.8295
+18100.3s 204 Test Precision (Real)                                                   0.9031
+18100.3s 205 Test Recall (Real)                                                   0.8179
+18100.3s 206 Test F1 (Real)                                                   0.8584
+18100.3s 207 Test Precision (Fake)                                                   0.7309
+18100.3s 208 Test Recall (Fake)                                                   0.8494
+18100.3s 209 Test F1 (Fake)                                                   0.7857
+18100.3s 210 Robustness 10dB Noise EER                                                   0.2092
+18100.3s 211 Robustness MP3 Compress. EER                                                   0.1436
+18100.3s 212 Robustness Reverb (0.5s) EER                                                   0.2686
+18100.3s 213 
+18100.3s 214 Results saved to evaluation_results.csv
+18100.3s 215 Model info saved to model_info.json
+18100.3s 216 Best model checkpoint: best_model.pt
+18100.3s 217 
+18100.3s 218 Pipeline complete.
+18106.6s 219 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+18106.6s 220 cells[i][c] = re.sub('\\\\\|', '|', cell)
+18106.8s 221 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+18106.8s 222 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+18107.4s 223 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+18107.8s 224 [NbConvertApp] Writing 1353843 bytes to __notebook__.ipynb
+18110.1s 225 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+18111.3s 226 [NbConvertApp] Support files will be in __results___files/
+18111.3s 227 [NbConvertApp] Making directory __results___files
+18111.3s 228 [NbConvertApp] Making directory __results___files
+18111.3s 229 [NbConvertApp] Making directory __results___files
+18111.3s 230 [NbConvertApp] Making directory __results___files
+18111.3s 231 [NbConvertApp] Making directory __results___files
+18111.3s 232 [NbConvertApp] Making directory __results___files
+18111.3s 233 [NbConvertApp] Making directory __results___files
+18111.3s 234 [NbConvertApp] Making directory __results___files
+18111.3s 235 [NbConvertApp] Making directory __results___files
+18111.3s 236 [NbConvertApp] Writing 902570 bytes to __results__.html

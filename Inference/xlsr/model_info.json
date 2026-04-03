@@ -1,0 +1,54 @@
+{
+  "model": "BanglaDeepfakeDetector",
+  "architecture": {
+    "frontend": "facebook/wav2vec2-xls-r-300m",
+    "xlsr_freeze_layers": 12,
+    "backend": "ModifiedAASIST",
+    "hidden_dim": 160,
+    "emb_dim": 128,
+    "num_heads": 4,
+    "num_gat_layers": 2,
+    "num_spectral_nodes": 32,
+    "dropout": 0.3
+  },
+  "loss": {
+    "type": "OCSoftmax",
+    "margin": 0.5,
+    "scale": 10.0
+  },
+  "training": {
+    "batch_size": 16,
+    "lr_xlsr": 1e-05,
+    "lr_aasist": 0.0001,
+    "weight_decay": 0.01,
+    "grad_clip": 1.0,
+    "epochs_trained": 6
+  },
+  "test_metrics": {
+    "eer": 0.1678910331783548,
+    "auc": 0.9260046337747764,
+    "accuracy": 0.8294614572333685
+  },
+  "robustness": {
+    "Clean": {
+      "EER": 0.1678910331783548,
+      "AUC": 0.9260046337747764,
+      "Acc": 0.8294614572333685
+    },
+    "10dB Noise": {
+      "EER": 0.20916231276421565,
+      "AUC": 0.8965754894169905,
+      "Acc": 0.6319957761351637
+    },
+    "MP3 Compress.": {
+      "EER": 0.14358229385035998,
+      "AUC": 0.9403386515068158,
+      "Acc": 0.8627243928194298
+    },
+    "Reverb (0.5s)": {
+      "EER": 0.2686492654400228,
+      "AUC": 0.8321449247221352,
+      "Acc": 0.6325237592397043
+    }
+  }
+}
