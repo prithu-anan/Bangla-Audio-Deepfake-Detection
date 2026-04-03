@@ -217,6 +217,10 @@ We visualized the attention weights from the modified AASIST backend to understa
 | WaveNet (Raw Audio) | 0.5000   | N/A    | N/A     | 0.5000 / 0.0000       | 1.0000 / 0.0000    | 0.6667 / 0.0000 | N/A                               |
 | WavLM + AASIST      | 0.8062   | 0.1594 | 0.9364  | 0.9632 / 0.6653       | 0.7210 / 0.9527    | 0.8247 / 0.7835 | 0.1837 / 0.2223 / 0.1806          |
 
+We wanated to prove that the LSTM model trained on the BanglaFake dataset is not learning generalizable features of deepfake audio, but rather is learning to detect specific artifacts introduced by the VITS algorithm used to generate the fake samples in the BanglaFake dataset. On the other hand, the WavLM + AASIST model, which learns directly from raw audio, may be able to learn more generalizable features of deepfake audio and thus perform better on unseen types of deepfake audio.
+
+To test this hypothesis, we created a new dataset of TTS-generated fake audio samples using two different TTS models (Gemini and Crikk) that were not used in the original BanglaFake dataset. We then evaluated our LSTM model on this new dataset to see if it could generalize to these new types of deepfake audio.
+
 # 3. TTS Generated Fake Audio Dataset :
 
 - Statistics:
