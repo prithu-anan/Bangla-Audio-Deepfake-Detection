@@ -297,7 +297,6 @@ To test this hypothesis, we created a new dataset of TTS-generated fake audio sa
 
 With this new augmented dataset at hand we trained the following models on BanglaFake dataset and evaluated them on this new augmented dataset to test their generalization capabilities:
 
-### Performance Comparison on Augmented Evaluation Dataset
 | Model             | Accuracy | ROC-AUC | Precision (Real/Fake) | Recall (Real/Fake) | F1 (Real/Fake)  |
 | ----------------- | -------- | ------- | --------------------- | ------------------ | --------------- |
 | LSTM (MFCC-based) | 0.5813   | 0.6641  | 0.5283 / 0.8215       | 0.9306 / 0.2777    | 0.6740 / 0.4151 |
@@ -305,4 +304,4 @@ With this new augmented dataset at hand we trained the following models on Bangl
 | XLSR + AASIST     | 0.5825   | 0.8328  | 0.5278 / 0.9079       | 0.9715 / 0.2444    | 0.6840 / 0.3852 |
 
 ### Confusion Matrix
-![](./images/confusion_matrices_lstm_wave2vec_xlsr.png)
+![](./)
