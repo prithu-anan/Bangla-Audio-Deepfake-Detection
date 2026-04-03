@@ -294,3 +294,11 @@ To test this hypothesis, we created a new dataset of TTS-generated fake audio sa
 11. Multiclass Waveform Comparison (Final Augmented Dataset only)
 
 ![Final Augmented Dataset](./images/aug-dataset/waveform_multiclass_comparison.png)
+
+With this new augmented dataset at hand we trained the following models on BanglaFake dataset and evaluated them on this new augmented dataset to test their generalization capabilities:
+
+| Model             | Accuracy | ROC-AUC | Precision (Real/Fake) | Recall (Real/Fake) | F1 (Real/Fake)  |
+| ----------------- | -------- | ------- | --------------------- | ------------------ | --------------- |
+| LSTM (MFCC-based) | 0.5813   | 0.6641  | 0.5283 / 0.8215       | 0.9306 / 0.2777    | 0.6740 / 0.4151 |
+| WaveLM + AASIST   | 0.6117   | 0.8193  | 0.5470 / 0.9006       | 0.9609 / 0.3081    | 0.6971 / 0.4591 |
+| XLSR + AASIST     | 0.5825   | 0.8328  | 0.5278 / 0.9079       | 0.9715 / 0.2444    | 0.6840 / 0.3852 |
