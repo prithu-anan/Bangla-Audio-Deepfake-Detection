@@ -1,0 +1,10 @@
+5.8s 1 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+5.8s 2 cells[i][c] = re.sub('\\\\\|', '|', cell)
+6.4s 3 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+6.4s 4 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+8.2s 5 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+10.9s 6 [NbConvertApp] Support files will be in __results___files/
+10.9s 7 [NbConvertApp] Making directory __results___files
+10.9s 8 [NbConvertApp] Making directory __results___files
+10.9s 9 [NbConvertApp] Making directory __results___files
+10.9s 10 [NbConvertApp] Writing 400547 bytes to __results__.html
