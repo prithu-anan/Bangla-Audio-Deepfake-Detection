@@ -1,0 +1,2 @@
+experiment,holdout_fake_source,holdout_test_size,holdout_test_accuracy,holdout_test_precision,holdout_test_recall,holdout_test_f1,holdout_test_auc
+holdout_gemini,gemini_deepfake,1703,0.6236054022313564,0.7185254291821259,0.6236054022313564,0.5928882471324716,0.6841674150949673

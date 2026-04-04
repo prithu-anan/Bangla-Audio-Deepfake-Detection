@@ -1,0 +1,2 @@
+experiment,holdout_fake_source,holdout_test_size,holdout_test_accuracy,holdout_test_precision,holdout_test_recall,holdout_test_f1,holdout_test_auc
+holdout_lstm,lstm_deepfake,1869,0.6591760299625468,0.7354371446172634,0.6591760299625469,0.6399795038035792,0.9032036823935558
