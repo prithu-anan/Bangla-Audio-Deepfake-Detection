@@ -1,0 +1,2 @@
+experiment,split_type,test_split_name,holdout_fake_source,test_size,test_eer,test_auc,test_accuracy,test_loss
+holdout_lstm,holdout,holdout_test,lstm_deepfake,1869,0.06794706559263522,0.9696881472957423,0.6046013911182451,1.0332519367667101

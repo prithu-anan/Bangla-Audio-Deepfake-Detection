@@ -1,0 +1,1 @@
+{"repos": [{"repoId": "microsoft/wavlm-large", "repoType": "model", "commitHash": "07d9d3d8576fd3d718ee7b16b2b6242e9610d9af", "filePaths": ["model.safetensors"]}, {"repoId": "microsoft/wavlm-large", "repoType": "model", "commitHash": "c1423ed94bb01d80a3f5ce5bc39f6026a0f4828c", "filePaths": ["config.json", "pytorch_model.bin"]}]}
