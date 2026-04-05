@@ -1,31 +1,6 @@
 # **Advancing Audio Forensics in Low-Resource Languages: A Comprehensive Framework for Bengali Audio Deepfake Detection**
 
-## **1\. Introduction and Problem Statement**
-
-The rapid ascendancy of generative artificial intelligence has fundamentally altered the landscape of digital media creation. While the democratization of content creation tools empowers creators, it simultaneously introduces profound risks to the integrity of the information ecosystem. Among the most insidious of these threats is the audio deepfake—synthetic speech generated via advanced Text-to-Speech (TTS) or Voice Conversion (VC) systems that mimics the prosody, timbre, and intonation of a target speaker with near-perceptual indistinguishability. This report outlines a rigorous research framework for the development of a Bengali Audio Deepfake Detector, a critical defense mechanism for a language spoken by hundreds of millions yet historically underserved in the domain of audio forensics.
-
-### **1.1 The Asymmetric Threat Landscape**
-
-The core challenge in audio forensics is the technological asymmetry between generation and detection. Generative models have evolved from concatenative synthesis, which required vast databases of recorded speech and sounded distinctively robotic, to neural synthesis architectures that learn the latent distribution of human speech. Modern architectures, particularly **VITS (Variational Inference with adversarial learning for end-to-end Text-to-Speech)** 1 and **HiFi-GAN** 3, can synthesize high-fidelity audio that captures the subtle micro-prosody of human speech—the breaths, the slight pitch jitters, and the emotional cadence—that were once reliable indicators of authenticity.
-
-In the context of the Bengali language, this threat is amplified by the "low-resource" dilemma. While high-resource languages like English and Mandarin benefit from massive, annotated datasets (e.g., ASVspoof, LJSpeech) and mature benchmarking ecosystems, Bengali lacks a comparable defensive infrastructure. The scarcity of diverse, large-scale deepfake datasets for Bengali has historically hindered the training of robust detection models.4 This vulnerability is particularly acute given the high penetration of voice-based communication platforms (e.g., WhatsApp, Messenger) in the Bengali-speaking world, where audio clips are a primary vector for the dissemination of information—and misinformation.
-
-### **1.2 The Phonetic and Linguistic Specificity of Bengali**
-
-Developing a detection system for Bengali requires a nuanced understanding of its phonetic structure, which differs significantly from the Indo-European languages that dominate current research. Bengali phonology is characterized by a rich inventory of vowels and consonants, including a semantic distinction between dental and retroflex stops, and aspirate versus unaspirate sounds. The language features complex compound characters (conjuncts) and a stress pattern that is typically initial but can shift for emphasis.
-
-Standard deepfake detection models trained on English datasets often fail to generalize to Bengali because they learn to identify artifacts in the context of English phonemes. For instance, the spectral artifacts left by a neural vocoder when generating an English fricative (like /s/ or /f/) might manifest differently when generating a Bengali retroflex plosive (like /ʈ/ or /ɖ/). Therefore, a generic "universal" detector is insufficient; effective defense requires a model that understands the underlying linguistic manifold of Bengali.5
-
-### **1.3 The VITS Generation Paradigm**
-
-To understand the detection challenge, one must understand the generation mechanism. The deepfakes in the target dataset (**BanglaFake**) are generated using **VITS**.7 Unlike multi-stage pipelines that separate the acoustic model (which predicts mel-spectrograms from text) from the vocoder (which generates waveform from spectrograms), VITS is an end-to-end architecture.
-
-VITS connects a normalizing flow-based prior encoder with a HiFi-GAN-based decoder via a stochastic duration predictor.1
-
-* **Stochastic Duration Prediction:** This component allows the model to generate speech with diverse rhythms from the same text input, mimicking the natural variation of human speech. This invalidates detection methods that rely on identifying rigid, monotonic temporal patterns.  
-* **Adversarial Training:** The decoder is trained using a discriminator that distinguishes between real and synthesized audio. This adversarial process explicitly forces the generator to remove the very artifacts (spectral banding, metallic buzz) that early detectors relied upon.2
-
-Consequently, the artifacts present in VITS-generated Bengali audio are not glaring glitches but subtle statistical anomalies in the phase coherence and high-frequency spectral envelope—features that are imperceptible to the human ear but potentially detectable by sophisticated neural networks.
+c
 
 ## **2\. Review of State-of-the-Art Detection Methodologies**
 

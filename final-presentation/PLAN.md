@@ -1,18 +1,32 @@
 # Final Presentation Plan
 
-We will document our final presentation in this file. We will include the following sections:
-
-- Problem definition
-- Dataset and its analysis (Statistics)
-- Proposed solution (architecture)
-- Loss function and its intuition.
-- Performance report
-- Comparison with state-of-the-art methods
-- Challenges/Discussions
-
 The section below provides a summary of what has been done in the project, including the datasets used, the models implemented, and the results obtained.
 
 # Summary of the Project
+
+## Problem Definition
+1. **Introduction and Problem Statement**
+The rapid ascendancy of generative artificial intelligence has fundamentally altered the landscape of digital media creation. While the democratization of content creation tools empowers creators, it simultaneously introduces profound risks to the integrity of the information ecosystem. Among the most insidious of these threats is the audio deepfake—synthetic speech generated via advanced Text-to-Speech (TTS) or Voice Conversion (VC) systems that mimics the prosody, timbre, and intonation of a target speaker with near-perceptual indistinguishability. This report outlines a rigorous research framework for the development of a Bengali Audio Deepfake Detector, a critical defense mechanism for a language spoken by hundreds of millions yet historically underserved in the domain of audio forensics.
+
+  - **1.1 The Asymmetric Threat Landscape**
+The core challenge in audio forensics is the technological asymmetry between generation and detection. Generative models have evolved from concatenative synthesis, which required vast databases of recorded speech and sounded distinctively robotic, to neural synthesis architectures that learn the latent distribution of human speech. Modern architectures, particularly VITS (Variational Inference with adversarial learning for end-to-end Text-to-Speech) 1 and HiFi-GAN 3, can synthesize high-fidelity audio that captures the subtle micro-prosody of human speech—the breaths, the slight pitch jitters, and the emotional cadence—that were once reliable indicators of authenticity.
+
+In the context of the Bengali language, this threat is amplified by the "low-resource" dilemma. While high-resource languages like English and Mandarin benefit from massive, annotated datasets (e.g., ASVspoof, LJSpeech) and mature benchmarking ecosystems, Bengali lacks a comparable defensive infrastructure. The scarcity of diverse, large-scale deepfake datasets for Bengali has historically hindered the training of robust detection models.4 This vulnerability is particularly acute given the high penetration of voice-based communication platforms (e.g., WhatsApp, Messenger) in the Bengali-speaking world, where audio clips are a primary vector for the dissemination of information—and misinformation.
+
+**1.2 The Phonetic and Linguistic Specificity of Bengali**
+Developing a detection system for Bengali requires a nuanced understanding of its phonetic structure, which differs significantly from the Indo-European languages that dominate current research. Bengali phonology is characterized by a rich inventory of vowels and consonants, including a semantic distinction between dental and retroflex stops, and aspirate versus unaspirate sounds. The language features complex compound characters (conjuncts) and a stress pattern that is typically initial but can shift for emphasis.
+
+Standard deepfake detection models trained on English datasets often fail to generalize to Bengali because they learn to identify artifacts in the context of English phonemes. For instance, the spectral artifacts left by a neural vocoder when generating an English fricative (like /s/ or /f/) might manifest differently when generating a Bengali retroflex plosive (like /ʈ/ or /ɖ/). Therefore, a generic "universal" detector is insufficient; effective defense requires a model that understands the underlying linguistic manifold of Bengali.5
+
+**1.3 The VITS Generation Paradigm**
+To understand the detection challenge, one must understand the generation mechanism. The deepfakes in the target dataset (BanglaFake) are generated using VITS.7 Unlike multi-stage pipelines that separate the acoustic model (which predicts mel-spectrograms from text) from the vocoder (which generates waveform from spectrograms), VITS is an end-to-end architecture.
+
+VITS connects a normalizing flow-based prior encoder with a HiFi-GAN-based decoder via a stochastic duration predictor.1
+
+Stochastic Duration Prediction: This component allows the model to generate speech with diverse rhythms from the same text input, mimicking the natural variation of human speech. This invalidates detection methods that rely on identifying rigid, monotonic temporal patterns.
+Adversarial Training: The decoder is trained using a discriminator that distinguishes between real and synthesized audio. This adversarial process explicitly forces the generator to remove the very artifacts (spectral banding, metallic buzz) that early detectors relied upon.2
+Consequently, the artifacts present in VITS-generated Bengali audio are not glaring glitches but subtle statistical anomalies in the phase coherence and high-frequency spectral envelope—features that are imperceptible to the human ear but potentially detectable by sophisticated neural networks.
+
 
 **We dealt with the following datasets in our project** :
 
@@ -217,7 +231,7 @@ We visualized the attention weights from the modified AASIST backend to understa
 | WaveNet (Raw Audio) | 0.5000   | N/A    | N/A     | 0.5000 / 0.0000       | 1.0000 / 0.0000    | 0.6667 / 0.0000 | N/A                               |
 | WavLM + AASIST      | 0.8062   | 0.1594 | 0.9364  | 0.9632 / 0.6653       | 0.7210 / 0.9527    | 0.8247 / 0.7835 | 0.1837 / 0.2223 / 0.1806          |
 
-We wanated to prove that the LSTM model trained on the BanglaFake dataset is not learning generalizable features of deepfake audio, but rather is learning to detect specific artifacts introduced by the VITS algorithm used to generate the fake samples in the BanglaFake dataset. On the other hand, the WavLM + AASIST model, which learns directly from raw audio, may be able to learn more generalizable features of deepfake audio and thus perform better on unseen types of deepfake audio.
+We wanted to prove that the LSTM model trained on the BanglaFake dataset is not learning generalizable features of deepfake audio, but rather is learning to detect specific artifacts introduced by the VITS algorithm used to generate the fake samples in the BanglaFake dataset. On the other hand, the WavLM + AASIST model, which learns directly from raw audio, may be able to learn more generalizable features of deepfake audio and thus perform better on unseen types of deepfake audio.
 
 To test this hypothesis, we created a new dataset of TTS-generated fake audio samples using two different TTS models (Gemini and Crikk) that were not used in the original BanglaFake dataset. We then evaluated our LSTM model on this new dataset to see if it could generalize to these new types of deepfake audio.
 
@@ -306,3 +320,95 @@ With this new augmented dataset at hand we trained the following models on Bangl
 
 ### Confusion Matrix
 ![](./images/confusion_matrices_lstm_wave2vec_xlsr.png)
+
+So, next we decided to perform `Ablation Study` .
+
+---
+
+### **Section 4: Ablation Study**
+
+This section evaluates the performance of the LSTM and WavLM-AASIST models under two main scenarios: 
+- **Full Dataset**, representing the upper bound of performance with mixed data
+- **Holdout Ablation**, which tests the models' ability to generalize to unseen deepfake generation sources.
+
+We applied the LOFSO (Leave-One-Fake-Source-Out) strategy, where we train the models on all sources except one and then test on the held-out source. This allows us to assess how well the models can detect deepfake audio from generators they have not seen during training.
+
+Data Composition Comparison:
+The following table shows the number of training and test samples for each holdout experiment:
+
+| Experiment (Holdout Source) | Train Fake | Test Fake | Train Real | Test Real | Total Test Size |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `crikk_deepfake` | 2620 | 1000 | 2278 | 869 | 1869 |
+| `lstm_deepfake` | 2620 | 1000 | 2278 | 869 | 1869 |
+| `gemini_deepfake` | 2700 | 911 | 2347 | 792 | 1703 |
+| `baglafake_deepfake` | 2620 | 1000 | 2278 | 869 | 1869 |
+
+#### **4.1 LSTM Experimental Results**
+The LSTM model utilizes 20 MFCC features as input. When trained on the full dataset, it achieves high overall accuracy. However, as shown in the ablation study (Table 4.1), its performance degrades significantly when encountering deepfake sources not present in the training set, particularly the `Banglafake` and `crikk` sources.
+
+**Table 4.1: LSTM Performance Metrics**
+| Test Scenario (Source) | Accuracy | AUC | Precision* | Recall* | F1-Score* |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Full Dataset (Stratified)** | **$0.9295$** | **$0.9765$** | **$0.9312$** | **$0.9295$** | **$0.9293$** |
+| Holdout: `lstm_deepfake` | $0.6592$ | $0.9032$ | $0.7354$ | $0.6592$ | $0.6400$ |
+| Holdout: `gemini_deepfake` | $0.6236$ | $0.6842$ | $0.7185$ | $0.6236$ | $0.5929$ |
+| Holdout: `crikk_deepfake` | $0.5003$ | $0.7179$ | $0.5766$ | $0.5003$ | $0.4141$ |
+| Holdout: `Banglafake_deepfake`| $0.4580$ | $0.3362$ | $0.2144$ | $0.4580$ | $0.2921$ |
+| **Average (Holdout cases)** | **$0.5603$** | **$0.6604$** | **$0.5612$** | **$0.5603$** | **$0.4848$** |
+*\*Note: Precision, Recall, and F1 are weighted averages for the LSTM model.*
+
+#### **4.2 WavLM-AASIST Experimental Results**
+The WavLM-based model demonstrates superior discriminative power, as evidenced by its high AUC and remarkably low Equal Error Rate (EER). Notably, the model achieves a precision of $1.0$ for the fake class in almost all scenarios, indicating that when it classifies an audio as "fake," it is virtually always correct.
+
+**Table 4.2: WavLM-AASIST Performance Metrics**
+| Test Scenario (Source) | Accuracy | EER | AUC | Precision (Fake) | Recall (Fake) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Full Dataset (Stratified)** | **$0.8522$** | **$0.0337$** | **$0.9905$** | **$1.0000$** | **$0.7235$** |
+| Holdout: `crikk_deepfake` | $0.5013$ | $0.0679$ | $0.9719$ | $0.9857$ | $0.0690$ |
+| Holdout: `lstm_deepfake` | $0.5324$ | $0.0899$ | $0.9512$ | $1.0000$ | $0.1260$ |
+| Holdout: `gemini_deepfake` | $0.6265$ | $0.1779$ | $0.9091$ | $0.9964$ | $0.3030$ |
+| Holdout: `Banglafake_deepfake`| $0.4644$ | $0.5960$ | $0.3669$ | $0.3333$ | $0.0010$ |
+| **Average (Holdout cases)** | **$0.5312$** | **$0.2329$** | **$0.7998$** | **$0.8289$** | **$0.1248$** |
+
+---
+
+**4.3 Why the Performance is Poor on Banglafake**
+
+The failure to detect baglafake samples (AUC $\approx 0.33$ for LSTM, $\approx 0.36$ for WavLM) is likely due to Domain Mismatch
+- **Unique Characteristics:** The baglafake samples may have acoustic properties, noise profiles, or artifacts that are fundamentally different from those found in the other three sources.
+
+- **Inverse Correlation:** An AUC below $0.5$ (like $0.33$) suggests that the model is actually finding patterns in baglafake that it associates strongly with "Real" audio from the other sources, causing it to confidently misclassify them.
+
+### **Section 5: Comparative Analysis**
+
+In this section, we compare the two architectures based on their absolute performance and their resilience to domain shifts (unseen generators).
+
+#### **5.1 Performance on Full Dataset**
+On the full dataset, the LSTM model achieves higher accuracy ($92.95\%$) compared to WavLM ($85.22\%$). However, accuracy can be misleading in deepfake detection where the cost of a "False Negative" (missing a fake) is high. WavLM achieves a significantly higher **AUC ($0.9905$)** and a very low **EER ($3.37\%$)**.
+
+**Detailed Calculation (AUC Improvement on Full Dataset):**
+$$\text{AUC Gain} = \text{AUC}_{\text{WavLM}} - \text{AUC}_{\text{LSTM}} = 0.9905 - 0.9765 = \mathbf{0.0140 \text{ (1.40\% absolute increase)}}$$
+$$\% \text{ Error Reduction in AUC} = \frac{1 - 0.9765}{1 - 0.9905} = \frac{0.0235}{0.0095} \approx \mathbf{2.47\times \text{ better confidence separation}}$$
+
+#### **5.2 Robustness to Unseen Generators (Generalization)**
+The primary advantage of the WavLM-AASIST model is its generalization capability. While both models struggle with the `Banglafake` source (likely due to its unique acoustic characteristics), WavLM maintains a high AUC across other holdout sets.
+
+**Detailed Calculation (Mean Holdout AUC Comparison):**
+1.  **LSTM Mean Holdout AUC**:
+    $$\frac{0.9032 (\text{LSTM}) + 0.6842 (\text{Gemini}) + 0.7179 (\text{Crikk}) + 0.3362 (\text{Bagla})}{4} = \mathbf{0.6604}$$
+2.  **WavLM Mean Holdout AUC**:
+    $$\frac{0.9512 (\text{LSTM}) + 0.9091 (\text{Gemini}) + 0.9719 (\text{Crikk}) + 0.3669 (\text{Bagla})}{4} = \mathbf{0.7998}$$
+3.  **Improvement**:
+    $$\text{Relative AUC Improvement} = \frac{0.7998 - 0.6604}{0.6604} \times 100\% \approx \mathbf{21.11\%}$$
+
+#### **5.3 Trade-off: Accuracy vs. Precision**
+The LSTM model optimizes for overall Accuracy, whereas WavLM-AASIST prioritizes **Precision**. In the full dataset experiment, WavLM achieved a Precision of **$1.0$** for fake samples.
+* **Implication**: If WavLM flags an audio as deepfake, the system has near-absolute certainty that it is indeed fake.
+* **Trade-off**: This high precision comes at the cost of Recall ($72.35\%$), meaning some fakes are missed (misclassified as real), which explains the lower overall accuracy ($85.22\%$) compared to the LSTM's $92.95\%$.
+
+#### **5.4 Conclusion of Analysis**
+While the LSTM model provides higher raw accuracy when the data sources are known, the **WavLM-AASIST** model is the superior choice for real-world deployment due to:
+1.  **Lower EER ($3.37\%$)**: Essential for balanced error management.
+2.  **Higher AUC ($0.9905$)**: Better separation between real and fake scores.
+3.  **Robustness**: A **$21.11\%$** relative improvement in AUC when facing unknown deepfake sources.
+

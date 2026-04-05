@@ -1,0 +1,4 @@
+split,real,fake
+train,2448,2816
+val,272,313
+stratified_test,680,782

@@ -1,0 +1,2 @@
+experiment,stratified_test_size,stratified_test_accuracy,stratified_test_precision,stratified_test_recall,stratified_test_f1,stratified_test_auc
+full_dataset_stratified,1462,0.9295485636114911,0.9311796688265934,0.9295485636114911,0.9293020585617788,0.9764649465924476
