@@ -1,0 +1,62 @@
+{
+  "model": "BanglaDeepfakeDetector",
+  "split_type": "holdout",
+  "test_split_name": "holdout_test",
+  "holdout_fake_source": "gemini_deepfake",
+  "architecture": {
+    "frontend": "microsoft/wavlm-large",
+    "wavlm_freeze_layers": 12,
+    "backend": "ModifiedAASIST",
+    "hidden_dim": 160,
+    "emb_dim": 128,
+    "num_heads": 4,
+    "num_gat_layers": 2,
+    "num_spectral_nodes": 32,
+    "dropout": 0.3
+  },
+  "loss": {
+    "type": "OCSoftmax",
+    "margin": 0.5,
+    "scale": 10.0
+  },
+  "training": {
+    "batch_size": 16,
+    "lr_wavlm": 1e-05,
+    "lr_aasist": 0.0001,
+    "weight_decay": 0.01,
+    "grad_clip": 1.0,
+    "epochs_trained": 5
+  },
+  "test_metrics": {
+    "eer": 0.1779284336227256,
+    "auc": 0.90914496224595,
+    "accuracy": 0.6265413975337639
+  },
+  "robustness": {
+    "Clean": {
+      "EER": 0.1779284336227256,
+      "AUC": 0.90914496224595,
+      "Acc": 0.6265413975337639
+    },
+    "10dB Noise": {
+      "EER": 0.19845754471166105,
+      "AUC": 0.8705288338932685,
+      "Acc": 0.7680563711098062
+    },
+    "MP3 Compress.": {
+      "EER": 0.2636678253445542,
+      "AUC": 0.8319362671722714,
+      "Acc": 0.6183206106870229
+    },
+    "Reverb (0.5s)": {
+      "EER": 0.2636678253445542,
+      "AUC": 0.8529657164399206,
+      "Acc": 0.6670581327069877
+    }
+  },
+  "holdout_test_metrics": {
+    "eer": 0.1779284336227256,
+    "auc": 0.90914496224595,
+    "accuracy": 0.6265413975337639
+  }
+}

@@ -1,0 +1,4 @@
+split,real,fake
+train,2152,2474
+val,379,437
+holdout_test,869,1000

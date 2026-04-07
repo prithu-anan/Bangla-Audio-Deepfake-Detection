@@ -1,0 +1,2 @@
+experiment,split_type,test_split_name,holdout_fake_source,test_size,test_eer,test_auc,test_accuracy,test_loss
+holdout_baglafake,holdout,holdout_test,baglafake_deepfake,1869,0.516842922899885,0.48154142692750285,0.4617442482611022,2.6958616222217557
